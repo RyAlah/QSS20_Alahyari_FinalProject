@@ -28,6 +28,8 @@
   - Creates tract_num column in each dataset, using regex to isolate the tract numbers from the census_tract column to allow for a common column to merge on (the census tract columns were originally slightly different for the two datasets and included additional string characters beyond just the tract number).
   - Conducts a left merge of 2010cleaned.csv with 2020cleaned.csv, merging on the new tract_num column. Appends _2010 and _2020 to columns from the two datasets that share the same name in order to differentiate demographic percentage columns from the 2010 and 2020 datasets.
   - Creates percentage point change columns for each racial category by taking the difference between each racial percent column from 2010 to 2020.
+  - Creates a train_access column that unifies the near_hblr and near_path columns and has four categories: path_only, hblr_only, near_both, near_neither
+  - Creates a bar plot grouping the mean percentage point change in each racial category from 2010-2020 for each train access category
  
 - Outputs:
   - One preliminary plot graphic and one merged .csv file
