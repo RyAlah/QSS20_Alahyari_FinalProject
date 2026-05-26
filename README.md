@@ -32,6 +32,5 @@
   - Creates a bar plot grouping the mean percentage point change in each racial category from 2010-2020 for each train access category
  
 - Outputs:
-  - One preliminary plot graphic and one merged .csv file
-    1. hudsonrace.png
-    2. race_merged.csv
+  - One preliminary plot graphic
+    1. hudson_race.png
