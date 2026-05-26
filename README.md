@@ -17,11 +17,19 @@
     1. 2010cleaned.csv
     2. 2020cleaned.csv
   
-2. [1_spatialmerge_loopcode.R](https://github.com/rebeccajohnson88/spatialanalysis_sec8study/blob/master/code/1_spatialmerge_loopcode.R)
+2. [data_mergeandplot](https://github.com/RyAlah/QSS20_Alahyari_FinalProject/blob/main/code/data_mergeandplot.ipynb)
 
 - Takes in:
-  - .RDS files created in step 1
+  - Two cleaned .csv files
+    1. 2010cleaned.csv
+    2. 2020cleaned.csv
   
 - What it does:
-  - Iterates through states and subsets to PHAs in that state
-  - Uses `st_intersection` logic to find the overlap between tract polygons and PHA service area polygons
+  - Creates tract_num column in each dataset, using regex to isolate the tract numbers from the census_tract column to allow for a common column to merge on (the census tract columns were originally slightly different for the two datasets and included additional string characters beyond just the tract number).
+  - Conducts a left merge of 2010cleaned.csv with 2020cleaned.csv, merging on the new tract_num column. Appends _2010 and _2020 to columns from the two datasets that share the same name in order to differentiate demographic percentage columns from the 2010 and 2020 datasets.
+  - Creates percentage point change columns for each racial category by taking the difference between each racial percent column from 2010 to 2020.
+ 
+- Outputs:
+  - One preliminary plot graphic and one merged .csv file
+    1. hudsonrace.png
+    2. race_merged.csv
