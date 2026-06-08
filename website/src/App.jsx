@@ -1,4 +1,32 @@
+import { useState } from 'react'
 import './App.css'
+
+function Lightbox({ src, alt, onClose }) {
+  return (
+    <div className="lightbox-overlay" onClick={onClose}>
+      <div className="lightbox-inner" onClick={e => e.stopPropagation()}>
+        <button className="lightbox-close" onClick={onClose} aria-label="Close">&times;</button>
+        <img src={src} alt={alt} />
+      </div>
+    </div>
+  )
+}
+
+function Fig({ src, alt, caption, wide }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <figure className={`fig-card${wide ? ' wide' : ''}`} style={{ marginTop: '24px' }}>
+        <div className="fig-img-wrap" onClick={() => setOpen(true)} title="Click to enlarge">
+          <img src={src} alt={alt} />
+          <span className="fig-zoom-hint">&#x26F6; Click to enlarge</span>
+        </div>
+        <figcaption>{caption}</figcaption>
+      </figure>
+      {open && <Lightbox src={src} alt={alt} onClose={() => setOpen(false)} />}
+    </>
+  )
+}
 
 export default function App() {
   return (
@@ -121,25 +149,23 @@ export default function App() {
           the <span className="line-blue">blue line</span> is the PATH.
           Warmer colors indicate increases; cooler colors indicate decreases.
         </p>
-        <figure className="fig-card wide">
-          <img src="/race_pct_change_maps.png" alt="Choropleth maps of racial % point change by census tract" />
-          <figcaption>
-            Fig. 1 &mdash; Racial % Point Change by Census Tract, 2010–2020. One map per racial group.
-            HBLR in green; PATH in blue.
-          </figcaption>
-        </figure>
+        <Fig
+          src="/race_pct_change_maps.png"
+          alt="Choropleth maps of racial % point change by census tract"
+          caption="Fig. 1 — Racial % Point Change by Census Tract, 2010–2020. One map per racial group. HBLR in green; PATH in blue."
+          wide
+        />
 
         <p style={{marginTop: '32px'}}>
           The bar chart below shows the mean percentage point change for each racial group broken
           out by transit proximity category, providing a high-level preview of the patterns the
           regression will test.
         </p>
-        <figure className="fig-card">
-          <img src="/hudsonrace1.png" alt="Bar chart of racial demographic change by transit proximity" />
-          <figcaption>
-            Fig. 2 &mdash; Mean Percentage Point Change in Racial Demographics by Transit Proximity Group (2010–2020).
-          </figcaption>
-        </figure>
+        <Fig
+          src="/hudsonrace1.png"
+          alt="Bar chart of racial demographic change by transit proximity"
+          caption="Fig. 2 — Mean Percentage Point Change in Racial Demographics by Transit Proximity Group (2010–2020)."
+        />
       </section>
 
       {/* OLS Results */}
@@ -179,20 +205,16 @@ export default function App() {
           Controls: 2010 median income and distance to the CBD both had significant effects across
           racial groups, broadly consistent with prior gentrification literature.
         </p>
-        <figure className="fig-card" style={{marginTop: '28px'}}>
-          <img src="/coefficient_plot_controlled.png" alt="Coefficient plot of OLS regression results" />
-          <figcaption>
-            Fig. 3 &mdash; Coefficient Plot: Effect of Transit Proximity on Racial % Point Change
-            (controlling for baseline income and distance to CBD). Points are coefficients;
-            bars are 95% confidence intervals. Reference group: Near Neither.
-          </figcaption>
-        </figure>
-        <figure className="fig-card" style={{marginTop: '20px'}}>
-          <img src="/regression_table_minimal_v6.png" alt="OLS regression results table" />
-          <figcaption>
-            Fig. 4 &mdash; OLS Regression Table: Full results by racial group (standard errors in parentheses).
-          </figcaption>
-        </figure>
+        <Fig
+          src="/coefficient_plot_controlled.png"
+          alt="Coefficient plot of OLS regression results"
+          caption="Fig. 3 — Coefficient Plot: Effect of Transit Proximity on Racial % Point Change (controlling for baseline income and distance to CBD). Points are coefficients; bars are 95% confidence intervals. Reference group: Near Neither."
+        />
+        <Fig
+          src="/regression_table_minimal_v6.png"
+          alt="OLS regression results table"
+          caption="Fig. 4 — OLS Regression Table: Full results by racial group (standard errors in parentheses)."
+        />
       </section>
 
       {/* Mediation */}
@@ -213,14 +235,11 @@ export default function App() {
           the HBLR — non-economic factors such as cultural or social neighborhood shifts may also
           be at play.
         </p>
-        <figure className="fig-card">
-          <img src="/mediation_all_plot_v7.png" alt="Mediation analysis coefficient plots" />
-          <figcaption>
-            Fig. 5 &mdash; Transit Coefficients Before and After Mediators. Rows: income change,
-            rent change, home value change. Green = significant (p &lt; 0.05); grey = not significant.
-            Dark bars = without mediator; light bars = with mediator.
-          </figcaption>
-        </figure>
+        <Fig
+          src="/mediation_all_plot_v7.png"
+          alt="Mediation analysis coefficient plots"
+          caption="Fig. 5 — Transit Coefficients Before and After Mediators. Rows: income change, rent change, home value change. Green = significant (p < 0.05); grey = not significant. Dark bars = without mediator; light bars = with mediator."
+        />
       </section>
 
       {/* Discussion */}
