@@ -25,8 +25,8 @@ Takes in the raw census and ACS data files and cleans them for merging.
 - for the 2020 census race data, transposes, filters out percentage rows (keeping only count rows), cleans column names using regex to remove hidden characters and tag duplicate column names with numbers, extracts and converts the relevant racial count columns to floats, calculates racial percentage columns
 - for the 2010 census race data, does the same but simpler since it only has count rows
 - for both datasets, manually codes near_hblr and near_path boolean columns by checking each tract's identifier against a hardcoded list of tracts within roughly 500 meters of an HBLR or PATH station
-- cleans all four ACS datasets (2010/2020 rent and home value) using transform_ACS_df
-- cleans the 2010 and 2020 income datasets separately, filtering to median estimate rows and converting values to floats. retains the household_num column from the 2020 income data for use as a merge weight later
+- cleans four ACS datasets (2010/2020 rent and home value) using transform_ACS_df
+- cleans the 2010 and 2020 income ACS datasets separately, filtering to median estimate rows and converting values to floats. retains the household_num column from the 2020 income data for use as a merge weight later
 
 **Outputs:**
 - [data/2020cleaned1.csv](data/2020cleaned1.csv)
